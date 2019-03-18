@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "631763838933",
+    "firebase_url": "https://duroapp-50d3f.firebaseio.com",
+    "project_id": "duroapp-50d3f",
+    "storage_bucket": "duroapp-50d3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:631763838933:android:be5feb09e202efe6",
+        "android_client_info": {
+          "package_name": "com.example.duroapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "631763838933-6k4tca06emandhhboo349jbpec4627s6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.duroapp",
+            "certificate_hash": "0570c16db25a2f3e4aaebb63992d2ecd3df7e104"
+          }
+        },
+        {
+          "client_id": "631763838933-glp9sifnp4t57q4js5lmgeposhj8qoig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArwIqTe1Gedc1VYZFLX-VHMkHutjj0vSc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "631763838933-glp9sifnp4t57q4js5lmgeposhj8qoig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
