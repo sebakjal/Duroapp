@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
     TextView texto;
-    Button button1, button2;
+    Button button1, button2, button3;
     Firebase firebaseReference;
     String valor;
 
@@ -39,26 +39,18 @@ public class MainActivity extends AppCompatActivity {
         texto = (TextView) findViewById(R.id.text1);
         button1 = (Button) findViewById(R.id.buttonleft);
         button2 = (Button) findViewById(R.id.buttonright);
+        button3 = (Button) findViewById(R.id.buttondown);
+
 
         firebaseReference = new Firebase("https://duroapp-50d3f.firebaseio.com/data/type");
+
+
+
         firebaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String text = dataSnapshot.getValue(String.class);
                 texto.setText(text);
-                //valor = texto.toString();
-                Toast.makeText(getApplicationContext(), "pene"+text, Toast.LENGTH_SHORT).show();
-
-                try {
-                    if (((text).equals("duro"))) {
-                        Intent intent = new Intent(MainActivity.this, MyIntentService2.class);
-                        startService(intent);
-                        Thread.sleep(1000);
-                        firebaseReference.setValue("blando");
-                    }
-                }catch (Exception e){
-                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
-                }
 
             }
 
@@ -69,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         });
+
+
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,6 +74,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 firebaseReference.setValue("duro");
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SegPlano2.class);
+                startService(intent);
             }
         });
     }
