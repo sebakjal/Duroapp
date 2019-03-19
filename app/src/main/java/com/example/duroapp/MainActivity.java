@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         texto = (TextView) findViewById(R.id.text1);
         button1 = (Button) findViewById(R.id.buttonleft);
         button2 = (Button) findViewById(R.id.buttonright);
-        button3 = (Button) findViewById(R.id.buttondown);
 
 
         firebaseReference = new Firebase("https://duroapp-50d3f.firebaseio.com/data/type");
@@ -58,7 +58,8 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-
+        Intent intent2 = new Intent(MainActivity.this, MainService.class);
+        startService(intent2);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,15 +71,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 firebaseReference.setValue("duro");
+
+                Toast.makeText(getApplicationContext(), "APRETE MI ANO", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        button3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               Intent intent = new Intent(MainActivity.this, MainService.class);
-                startService(intent);
-            }
-        });
     }
 }

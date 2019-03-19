@@ -1,10 +1,12 @@
 package com.example.duroapp;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -17,58 +19,68 @@ import com.firebase.client.ValueEventListener;
 import static android.content.ContentValues.TAG;
 
 public class MainService extends Service {
-    MediaPlayer mp;
-    private Camera camara;
-    private CameraManager micamara;
-    private String idCamara;
-    public int datorecivido = 1;
 
+    MediaPlayer mp;
+    Camera camara;
+    CameraManager micamara;
+    String idCamara;
+    int datorecivido = 1;
+
+
+    public MainService() {
+    }
     private Firebase f = new Firebase("https://duroapp-50d3f.firebaseio.com/data/type");
     private ValueEventListener handler;
-
-
     @Override
-    public IBinder onBind(Intent arg0) {
-        return null;
+    public IBinder onBind(Intent intent) {
+
+        throw new UnsupportedOperationException("Not yet implemented");
     }
 
     @Override
     public void onCreate() {
+        Log.d(TAG, "Servicio creado...");
         super.onCreate();
-        Toast.makeText(getApplicationContext(), "Creado Servidor", Toast.LENGTH_SHORT).show();
-
     }
+
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.d(TAG, "Servicio iniciado...");
-        //Toast.makeText(getApplicationContext(), "ONSTART2", Toast.LENGTH_SHORT).show();
 
-       /* Intent intent2 = new Intent(MainService.this, MyServiceTest.class);
-        startService(intent2);
-*/
+        Toast.makeText(getApplicationContext(), "ENTRE A LA WEA", Toast.LENGTH_SHORT).show();
+
         handler = new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 String text = dataSnapshot.getValue(String.class);
                 //valor = texto.toString();
-                Toast.makeText(getApplicationContext(), "pene"+text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "pene "+text, Toast.LENGTH_SHORT).show();
 
                 try {
                     if (((text).equals("duro"))) {
-                        Intent intent = new Intent(MainService.this, FlashIntentService.class);
-                        startService(intent);
-                        Intent intent2 = new Intent(MainService.this, SirenIntentService.class);
-                        startService(intent2);
-
-
                         Toast.makeText(getApplicationContext(), "ENTRO", Toast.LENGTH_SHORT).show();
+                       Intent intent = new Intent(MainService.this, RedActivity.class);
+                        startActivity(intent);
+
+                        siren();
+                        flash();
+
+                        //Intent intent = new Intent(MainService.this, RedActivity.class);
+                        //startActivity(intent);
+                       // Intent intent = new Intent(MainService.this, FlashIntentService.class);
+                       // startService(intent);
+                      //  Intent intent2 = new Intent(MainService.this, SirenIntentService.class);
+                      //  startService(intent2);
 
                         Thread.sleep(1000);
                         f.setValue("blando");
                     }
+
+
                 }catch (Exception e){
                     Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
                 }
@@ -82,23 +94,68 @@ public class MainService extends Service {
         f.addValueEventListener(handler);
 
 
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
-    @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        //startService (new Intent(this, MainActivity.class));
-        //Intent intent = new Intent(MainService.this, SegPlano3.class);
-        //startService(intent);
-     /*   Intent broadcastIntent = new Intent("uk.ac.shef.oak.ActivityRecognition.RestartSensor");
-        sendBroadcast(broadcastIntent);
-        Log.d(TAG, "Servicio destruido...");
-        Toast.makeText(getApplicationContext(), "servicio destruido", Toast.LENGTH_SHORT).show();
-        */
-        Intent intent2 = new Intent(MainService.this, MyServiceTest.class);
-        startService(intent2);
+    public void onDestroy(){
+        Log.d(TAG, "Servicio destrudio...");
+        stopSelf();
+    }
+
+    public void flash(){
+
+        micamara = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+
+        // Asignacion camara dispositivo flash
+        try {
+            idCamara = micamara.getCameraIdList()[0];
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Thread.sleep(250);
+                    micamara.setTorchMode(idCamara, true);
+                    camara = Camera.open();
+                    Camera.Parameters parameters = camara.getParameters();
+                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
+                    camara.setParameters(parameters);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    Thread.sleep(250);
+                    micamara.setTorchMode(idCamara, false);
+                    camara.stopPreview();
+                    camara.release();
+
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
 
+
+
+        }
+    }
+
+
+    public void siren(){
+
+        MediaPlayer mp;
+        mp = MediaPlayer.create(this, R.raw.siren);
+        try {
+            //mp.createVolumeShaper();
+            mp.start();
+            //Thread.sleep(3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
