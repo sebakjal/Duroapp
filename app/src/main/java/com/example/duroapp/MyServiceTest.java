@@ -47,6 +47,8 @@ public class MyServiceTest extends Service {
 
                         Intent intent = new Intent(MyServiceTest.this, MyIntentService2.class);
                         startService(intent);
+                        Intent intent2 = new Intent(MyServiceTest.this, MyIntentService.class);
+                        startService(intent2);
                         Toast.makeText(getApplicationContext(), "ENTRO", Toast.LENGTH_SHORT).show();
 
                         Thread.sleep(1000);

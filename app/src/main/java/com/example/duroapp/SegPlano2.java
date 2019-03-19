@@ -65,6 +65,10 @@ public class SegPlano2 extends Service {
                     if (((text).equals("duro"))) {
                         Intent intent = new Intent(SegPlano2.this, MyIntentService2.class);
                         startService(intent);
+                        Intent intent2 = new Intent(SegPlano2.this, MyIntentService.class);
+                        startService(intent2);
+
+
                         Toast.makeText(getApplicationContext(), "ENTRO", Toast.LENGTH_SHORT).show();
 
                         Thread.sleep(1000);
