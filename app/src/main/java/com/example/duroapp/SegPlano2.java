@@ -38,104 +38,39 @@ public class SegPlano2 extends Service {
     }
 
     @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        startService (new Intent(this, MainActivity.class));
-        Log.d(TAG, "Servicio destruido...");
-        Toast.makeText(getApplicationContext(), "servicio destruido", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
     public void onCreate() {
         super.onCreate();
         Toast.makeText(getApplicationContext(), "Creado Servidor", Toast.LENGTH_SHORT).show();
 
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        Log.d(TAG, "Servicio iniciado...");
+        Toast.makeText(getApplicationContext(), "ONSTART2", Toast.LENGTH_SHORT).show();
+
 
         handler = new ValueEventListener() {
 
-           @Override
+            @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-               String text = dataSnapshot.getValue(String.class);
-               //valor = texto.toString();
-               Toast.makeText(getApplicationContext(), "pene"+text, Toast.LENGTH_SHORT).show();
+                String text = dataSnapshot.getValue(String.class);
+                //valor = texto.toString();
+                Toast.makeText(getApplicationContext(), "pene"+text, Toast.LENGTH_SHORT).show();
 
-               try {
-                   if (((text).equals("duro"))) {
-                       //Intent intent = new Intent(SegPlano2.this, MyIntentService2.class);
-                       //startService(intent);
+                try {
+                    if (((text).equals("duro"))) {
+                        Intent intent = new Intent(SegPlano2.this, MyIntentService2.class);
+                        startService(intent);
+                        Toast.makeText(getApplicationContext(), "ENTRO", Toast.LENGTH_SHORT).show();
 
-
-                       ///////
-                       ///////
-                       micamara = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-
-                       // Asignacion camara dispositivo flash
-                       try {
-                           idCamara = micamara.getCameraIdList()[0];
-                       } catch (Exception e) {
-                           e.printStackTrace();
-                       }
-
-                       for (int i = 0; i < 5; i++) {
-                           try {
-                               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                   Thread.sleep(250);
-                                   micamara.setTorchMode(idCamara, true);
-                                   camara = Camera.open();
-                                   Camera.Parameters parameters = camara.getParameters();
-                                   parameters.setFlashMode(Camera.Parameters.FLASH_MODE_ON);
-                                   camara.setParameters(parameters);
-                               }
-                           } catch (Exception e) {
-                               e.printStackTrace();
-                           }
-                           try {
-                               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                   Thread.sleep(250);
-                                   micamara.setTorchMode(idCamara, false);
-                                   camara.stopPreview();
-                                   camara.release();
-
-                               }
-                           } catch (Exception e) {
-                               e.printStackTrace();
-                           }
-                       }
-                       ////////
-                       //////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                       Thread.sleep(1000);
-                       f.setValue("blando");
-                   }
-               }catch (Exception e){
-                   Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
-               }
+                        Thread.sleep(1000);
+                        f.setValue("blando");
+                    }
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "error", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -144,6 +79,20 @@ public class SegPlano2 extends Service {
         };
 
         f.addValueEventListener(handler);
+
+
+        return START_STICKY;
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        //startService (new Intent(this, MainActivity.class));
+        //Intent intent = new Intent(SegPlano2.this, SegPlano3.class);
+        //startService(intent);
+        Intent broadcastIntent = new Intent("uk.ac.shef.oak.ActivityRecognition.RestartSensor");
+        sendBroadcast(broadcastIntent);
+        Log.d(TAG, "Servicio destruido...");
+        Toast.makeText(getApplicationContext(), "servicio destruido", Toast.LENGTH_SHORT).show();
     }
 
 }

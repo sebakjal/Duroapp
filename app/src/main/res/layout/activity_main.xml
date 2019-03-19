@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="46dp"
         android:layout_marginTop="313dp"
-        android:text="@string/boton1"
+        android:text="BLANDO"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="312dp"
         android:layout_marginEnd="50dp"
-        android:text="@string/boton2"
+        android:text="DURO"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
