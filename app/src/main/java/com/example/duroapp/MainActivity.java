@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SegPlano2.class);
+               Intent intent = new Intent(MainActivity.this, SegPlano2.class);
                 startService(intent);
             }
         });
