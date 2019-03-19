@@ -16,20 +16,20 @@ import android.widget.TextView;
  * An {@link IntentService} subclass for handling asynchronous task requests in
  * a service on a separate handler thread.
  * <p>
- * TODO: Customize class - update intent actions, extra parameters and static
+
  * helper methods.
  */
-public class MyIntentService extends IntentService {
+public class SirenIntentService extends IntentService {
     MediaPlayer mp;
 
-    public MyIntentService() {
-        super("MyIntentService");
+    public SirenIntentService() {
+        super("SirenIntentService");
     }
 
     @Override
     protected void onHandleIntent(Intent msgIntent) {
         if (msgIntent!=null) {
-            mp = MediaPlayer.create(this, R.raw.doggo);
+            mp = MediaPlayer.create(this, R.raw.siren);
             try {
                 //mp.createVolumeShaper();
                 mp.start();

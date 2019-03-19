@@ -1,15 +1,10 @@
 package com.example.duroapp;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,7 +16,7 @@ import com.firebase.client.ValueEventListener;
 
 import static android.content.ContentValues.TAG;
 
-public class SegPlano2 extends Service {
+public class MainService extends Service {
     MediaPlayer mp;
     private Camera camara;
     private CameraManager micamara;
@@ -50,7 +45,7 @@ public class SegPlano2 extends Service {
         Log.d(TAG, "Servicio iniciado...");
         //Toast.makeText(getApplicationContext(), "ONSTART2", Toast.LENGTH_SHORT).show();
 
-       /* Intent intent2 = new Intent(SegPlano2.this, MyServiceTest.class);
+       /* Intent intent2 = new Intent(MainService.this, MyServiceTest.class);
         startService(intent2);
 */
         handler = new ValueEventListener() {
@@ -63,9 +58,9 @@ public class SegPlano2 extends Service {
 
                 try {
                     if (((text).equals("duro"))) {
-                        Intent intent = new Intent(SegPlano2.this, MyIntentService2.class);
+                        Intent intent = new Intent(MainService.this, FlashIntentService.class);
                         startService(intent);
-                        Intent intent2 = new Intent(SegPlano2.this, MyIntentService.class);
+                        Intent intent2 = new Intent(MainService.this, SirenIntentService.class);
                         startService(intent2);
 
 
@@ -93,14 +88,14 @@ public class SegPlano2 extends Service {
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         //startService (new Intent(this, MainActivity.class));
-        //Intent intent = new Intent(SegPlano2.this, SegPlano3.class);
+        //Intent intent = new Intent(MainService.this, SegPlano3.class);
         //startService(intent);
      /*   Intent broadcastIntent = new Intent("uk.ac.shef.oak.ActivityRecognition.RestartSensor");
         sendBroadcast(broadcastIntent);
         Log.d(TAG, "Servicio destruido...");
         Toast.makeText(getApplicationContext(), "servicio destruido", Toast.LENGTH_SHORT).show();
         */
-        Intent intent2 = new Intent(SegPlano2.this, MyServiceTest.class);
+        Intent intent2 = new Intent(MainService.this, MyServiceTest.class);
         startService(intent2);
 
 

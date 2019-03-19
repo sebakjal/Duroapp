@@ -29,15 +29,15 @@ import java.util.Map;
  * TODO: Customize class - update intent actions, extra parameters and static
  * helper methods.
  */
-public class MyIntentService2 extends IntentService {
+public class FlashIntentService extends IntentService {
     MediaPlayer mp;
     private Camera camara;
     private CameraManager micamara;
     private String idCamara;
     public int datorecivido = 1;
 
-    public MyIntentService2() {
-        super("MyIntentService");
+    public FlashIntentService() {
+        super("SirenIntentService");
     }
 
     @Override

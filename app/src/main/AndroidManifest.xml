@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service
-            android:name=".MyIntentService"
+            android:name=".SirenIntentService"
             android:exported="false"></service>
         <service
             android:name=".MyServiceTest"
@@ -31,11 +31,11 @@
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".SegPlano2"
+            android:name=".MainService"
             android:enabled="true"
             android:exported="true" />
         <service
-            android:name=".MyIntentService2"
+            android:name=".FlashIntentService"
             android:exported="false" />
         <service
             android:name=".MyServiceTest"

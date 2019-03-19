@@ -1,20 +1,16 @@
 package com.example.duroapp;
 
 import android.content.Intent;
-import android.service.autofill.TextValueSanitizer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -80,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent intent = new Intent(MainActivity.this, SegPlano2.class);
+               Intent intent = new Intent(MainActivity.this, MainService.class);
                 startService(intent);
             }
         });

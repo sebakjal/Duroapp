@@ -20,7 +20,7 @@ public class MyServiceTest extends Service {
     private ValueEventListener handler;
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
+
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
@@ -45,9 +45,9 @@ public class MyServiceTest extends Service {
                 try {
                     if (((text).equals("duro"))) {
 
-                        Intent intent = new Intent(MyServiceTest.this, MyIntentService2.class);
+                        Intent intent = new Intent(MyServiceTest.this, FlashIntentService.class);
                         startService(intent);
-                        Intent intent2 = new Intent(MyServiceTest.this, MyIntentService.class);
+                        Intent intent2 = new Intent(MyServiceTest.this, SirenIntentService.class);
                         startService(intent2);
                         Toast.makeText(getApplicationContext(), "ENTRO", Toast.LENGTH_SHORT).show();
 
