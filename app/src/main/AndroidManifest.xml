@@ -9,7 +9,7 @@
         android:name=".Database"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Duroapp"
+        android:label="Aplicación de seguridad"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
