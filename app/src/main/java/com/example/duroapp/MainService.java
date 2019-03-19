@@ -44,40 +44,53 @@ public class MainService extends Service {
     }
 
 
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         Log.d(TAG, "Servicio iniciado...");
 
-        Toast.makeText(getApplicationContext(), "ENTRE A LA WEA", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "StartMainService", Toast.LENGTH_SHORT).show();
 
         handler = new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 String text = dataSnapshot.getValue(String.class);
-                //valor = texto.toString();
-                Toast.makeText(getApplicationContext(), "pene "+text, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), ""+text, Toast.LENGTH_SHORT).show();
 
                 try {
-                    if (((text).equals("duro"))) {
-                        Toast.makeText(getApplicationContext(), "ENTRO", Toast.LENGTH_SHORT).show();
-                       Intent intent = new Intent(MainService.this, RedActivity.class);
+                    //FLASH
+                    if (((text).equals("11000"))) {
+                        Toast.makeText(getApplicationContext(), "EntroFLASH", Toast.LENGTH_SHORT).show();
+                        flash();
+                        Thread.sleep(1000);
+                        f.setValue("10000");
+                    }
+                    //AUDIO
+                    if (((text).equals("10100"))) {
+                        Toast.makeText(getApplicationContext(), "EntroAUDIO", Toast.LENGTH_SHORT).show();
+                        siren();
+                        Thread.sleep(1000);
+                        f.setValue("10000");
+                    }
+                    //RED
+                    if (((text).equals("10010"))) {
+                        Toast.makeText(getApplicationContext(), "EntroRED", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainService.this, RedActivity.class);
                         startActivity(intent);
-
+                        Thread.sleep(1000);
+                        f.setValue("10000");
+                    }
+                    //TODO
+                    if (((text).equals("10001"))) {
+                        Toast.makeText(getApplicationContext(), "entroTODO", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainService.this, RedActivity.class);
+                        startActivity(intent);
                         siren();
                         flash();
-
-                        //Intent intent = new Intent(MainService.this, RedActivity.class);
-                        //startActivity(intent);
-                       // Intent intent = new Intent(MainService.this, FlashIntentService.class);
-                       // startService(intent);
-                      //  Intent intent2 = new Intent(MainService.this, SirenIntentService.class);
-                      //  startService(intent2);
-
                         Thread.sleep(1000);
-                        f.setValue("blando");
+                        f.setValue("10000");
                     }
 
 

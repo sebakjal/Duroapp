@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,29 +13,43 @@
         android:layout_marginStart="148dp"
         android:layout_marginTop="92dp"
         android:text="@string/cambiar"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="30sp" />
 
     <Button
-        android:id="@+id/buttonleft"
+        android:id="@+id/flash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="313dp"
-        android:text="BLANDO"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginTop="172dp"
+        android:text="Flash" />
 
     <Button
-        android:id="@+id/buttonright"
+        android:id="@+id/audio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="312dp"
-        android:layout_marginEnd="50dp"
-        android:text="DURO"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_alignTop="@+id/flash"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="84dp"
+        android:text="Audio" />
+
+    <Button
+        android:id="@+id/red"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/flash"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="196dp"
+        android:text="Red" />
+
+    <Button
+        android:id="@+id/todo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/audio"
+        android:layout_alignTop="@+id/red"
+        android:text="Todo" />
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
