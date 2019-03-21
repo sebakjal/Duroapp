@@ -80,7 +80,7 @@ public class ServiceNoDelay extends Service {
                         f.setValue("null");
                     }
                     //RED
-                    if (((text).equals("redd"))) {
+                    if (((text).equals("red"))) {
                         //Toast.makeText(getApplicationContext(), "EntroRED", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(ServiceNoDelay.this, RedActivity.class);
                         startActivity(intent);

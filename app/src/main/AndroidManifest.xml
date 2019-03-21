@@ -14,23 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".RedActivity" />
-
-        <service
-            android:name=".SirenIntentService"
-            android:exported="false" />
-        <service
-            android:name=".MainService"
-            android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".FlashIntentService"
-            android:exported="false" />
-        <service
-            android:name=".MainService"
-            android:enabled="true"
-            android:exported="true" />
-
         <activity android:name=".MainActivity">
+        </activity>
+
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,23 +27,10 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".SensorRestartBroadcastReceiver"
-            android:enabled="true"
-            android:exported="true"
-            android:label="RestartServiceWhenStopped">
-            <intent-filter>
-                <action android:name="ac.in.ActivityRecognition.RestartSensor" />
-            </intent-filter>
-        </receiver>
-
-        <service
-            android:name=".MainService2"
-            android:enabled="true"
-            android:exported="true" />
         <service
             android:name=".ServiceNoDelay"
             android:enabled="true" />
+
         <receiver
             android:name=".SensorRestarterBroadcastReceiver"
             android:enabled="true"

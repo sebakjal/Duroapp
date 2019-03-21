@@ -3,6 +3,7 @@ package com.example.duroapp;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
@@ -38,7 +39,7 @@ public class RedActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 // Cuando pasen los DURACION_SPLASH segundos, lee siguientes lineas
-               // Intent intent = new Intent(RedActivity.this, MainActivity.class);
+                // Intent intent = new Intent(RedActivity.this, MainActivity.class);
                 //6startActivity(intent);
                 finish();
             };
@@ -47,3 +48,4 @@ public class RedActivity extends AppCompatActivity {
     }
 
 }
+
