@@ -1,8 +1,11 @@
 package com.example.duroapp;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,12 +27,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent mServiceIntent = new Intent(MainActivity.this, ServiceNoDelay.class);
+        Toast.makeText(getApplicationContext(), "if efuera", Toast.LENGTH_SHORT).show();
+
+        if (isMyServiceRunning(ServiceNoDelay.class)==false) {
+            startService(mServiceIntent);
+            Toast.makeText(getApplicationContext(), "if entro", Toast.LENGTH_SHORT).show();
+
+        }
    }
+
 
     @Override
     protected void onStart(){
         super.onStart();
-
 
         texto = (TextView) findViewById(R.id.text1);
 
@@ -40,13 +52,15 @@ public class MainActivity extends AppCompatActivity {
         button4 = (Button) findViewById(R.id.todo);
 
 
-        firebaseReference = new Firebase("https://duroapp-50d3f.firebaseio.com/data/type");
-
-
+        firebaseReference = new Firebase("https://condominiumsegurity.firebaseio.com/");
+        //https://condominiumsegurity.firebaseio.com/
+        //         firebaseReference = new Firebase("https://duroapp-50d3f.firebaseio.com/data/type");
 
         firebaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //Toast.makeText(getApplicationContext(), "activityDataChange", Toast.LENGTH_SHORT).show();
+
                 String text = dataSnapshot.getValue(String.class);
                 texto.setText(text);
 
@@ -60,15 +74,13 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        Intent intent2 = new Intent(MainActivity.this, MainService.class);
-        startService(intent2);
 
         //FLASH
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseReference.setValue("11000");
-                Toast.makeText(getApplicationContext(), "ApreteFLASH", Toast.LENGTH_SHORT).show();
+                firebaseReference.setValue("flash");
+                //Toast.makeText(getApplicationContext(), "ApreteFLASH", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -76,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseReference.setValue("10100");
-                Toast.makeText(getApplicationContext(), "ApreteAUDIO", Toast.LENGTH_SHORT).show();
+                firebaseReference.setValue("siren");
+                //Toast.makeText(getApplicationContext(), "ApreteAUDIO", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -85,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseReference.setValue("10010");
-                Toast.makeText(getApplicationContext(), "ApreteRED", Toast.LENGTH_SHORT).show();
+                firebaseReference.setValue("red");
+                //Toast.makeText(getApplicationContext(), "ApreteRED", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -94,11 +106,33 @@ public class MainActivity extends AppCompatActivity {
         button4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebaseReference.setValue("10001");
-                Toast.makeText(getApplicationContext(), "ApreteTODO", Toast.LENGTH_SHORT).show();
+                firebaseReference.setValue("all");
+                //Toast.makeText(getApplicationContext(), "ApreteTODO", Toast.LENGTH_SHORT).show();
             }
         });
 
 
+    }
+
+    @Override
+    public void onDestroy()
+    {
+        super.onDestroy();
+        Toast.makeText(getApplicationContext(), "Actividad Destruida", Toast.LENGTH_SHORT).show();
+
+        //activities.remove(this);
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Toast.makeText(getApplicationContext(), "true ", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        }
+        Toast.makeText(getApplicationContext(), "false", Toast.LENGTH_SHORT).show();
+
+        return false;
     }
 }

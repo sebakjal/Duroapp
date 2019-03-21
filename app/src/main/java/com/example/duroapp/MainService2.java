@@ -17,8 +17,16 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import static android.content.ContentValues.TAG;
+/////////77
 
-public class MainService extends Service {
+/////////
+//////////7
+/////
+///////
+////////////7
+/////////////
+
+public class MainService2 extends Service {
 
     MediaPlayer mp;
     Camera camara;
@@ -27,7 +35,7 @@ public class MainService extends Service {
     int datorecivido = 1;
 
 
-    public MainService() {
+    public MainService2() {
     }
     private Firebase f = new Firebase("https://condominiumsegurity.firebaseio.com/");
     //    private Firebase f = new Firebase("https://duroapp-50d3f.firebaseio.com/data/type");
@@ -40,12 +48,10 @@ public class MainService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "Servicio creado1...");
-        Toast.makeText(getApplicationContext(), "Servicio Creado1", Toast.LENGTH_SHORT).show();
-        super.onCreate();
+        Log.d(TAG, "Servicio creado...");
+        Toast.makeText(getApplicationContext(), "Servicio Creado2", Toast.LENGTH_SHORT).show();
 
-        Intent intent3 = new Intent(MainService.this, MainService2.class);
-        stopService(intent3);
+        super.onCreate();
     }
 
 
@@ -53,9 +59,9 @@ public class MainService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.d(TAG, "Servicio iniciado1...");
+        Log.d(TAG, "Servicio iniciado...");
 
-        Toast.makeText(getApplicationContext(), "Servicio Iniciado1", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Servicio Iniciado2", Toast.LENGTH_SHORT).show();
 
         handler = new ValueEventListener() {
 
@@ -67,9 +73,10 @@ public class MainService extends Service {
                 try {
                     //FLASH
                     if (((text).equals("flash"))) {
-                        Toast.makeText(getApplicationContext(), "EntroFLASH", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "EntroFLASH2", Toast.LENGTH_SHORT).show();
                         Thread.sleep(1000);
-                        flash();
+                        //flash();
+                        siren();
                         Thread.sleep(1000);
                         f.setValue("null");
                     }
@@ -84,7 +91,7 @@ public class MainService extends Service {
                     //RED
                     if (((text).equals("redd"))) {
                         //Toast.makeText(getApplicationContext(), "EntroRED", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainService.this, RedActivity.class);
+                        Intent intent = new Intent(MainService2.this, RedActivity.class);
                         startActivity(intent);
                         Thread.sleep(1000);
                         f.setValue("null");
@@ -92,7 +99,7 @@ public class MainService extends Service {
                     //TODO
                     if (((text).equals("all"))) {
                         //Toast.makeText(getApplicationContext(), "entroTODO", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainService.this, RedActivity.class);
+                        Intent intent = new Intent(MainService2.this, RedActivity.class);
                         startActivity(intent);
                         siren();
                         flash();
@@ -118,30 +125,12 @@ public class MainService extends Service {
     }
 
     public void onDestroy(){
-        Log.d(TAG, "Servicio destrudio1...");
-        Toast.makeText(getApplicationContext(), "Servico Destruido1", Toast.LENGTH_SHORT).show();
-
-        Intent broadcastIntent = new Intent("ac.in.ActivityRecognition.RestartSensor");
-        sendBroadcast(broadcastIntent);
-
-        //stopSelf();
-    }
-
-    @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        Log.i(TAG, "TaskRemoved()");
-        Toast.makeText(getApplicationContext(), "Task1", Toast.LENGTH_SHORT).show();
-        super.onTaskRemoved(rootIntent);
+        super.onDestroy();
+        Log.d(TAG, "Servicio destrudio...");
+        Toast.makeText(getApplicationContext(), "Servico Destruido2", Toast.LENGTH_SHORT).show();
         stopSelf();
-
-        //Intent intent2 = new Intent(MainService.this, MainService.class);
-        //startService(intent2);
-
-        //Intent broadcastIntent = new Intent("com.arvi.ActivityRecognition.RestartSensor");
-        //sendBroadcast(broadcastIntent);
-
-
     }
+
 
     public void flash(){
 

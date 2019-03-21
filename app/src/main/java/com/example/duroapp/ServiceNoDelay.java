@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,9 +17,14 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import static android.content.ContentValues.TAG;
 
-public class MainService extends Service {
+public class ServiceNoDelay extends Service {
+    public int counter = 0;
+    Context context;
 
     MediaPlayer mp;
     Camera camara;
@@ -26,35 +32,27 @@ public class MainService extends Service {
     String idCamara;
     int datorecivido = 1;
 
-
-    public MainService() {
-    }
     private Firebase f = new Firebase("https://condominiumsegurity.firebaseio.com/");
     //    private Firebase f = new Firebase("https://duroapp-50d3f.firebaseio.com/data/type");
     private ValueEventListener handler;
-    @Override
-    public IBinder onBind(Intent intent) {
 
-        throw new UnsupportedOperationException("Not yet implemented");
+    public ServiceNoDelay(Context applicationContext) {
+        super();
+        context = applicationContext;
+        Log.i("HERE", "here service created!");
+        Toast.makeText(getApplicationContext(), "ServicioCreado ", Toast.LENGTH_SHORT).show();
+
     }
 
-    @Override
-    public void onCreate() {
-        Log.d(TAG, "Servicio creado1...");
-        Toast.makeText(getApplicationContext(), "Servicio Creado1", Toast.LENGTH_SHORT).show();
-        super.onCreate();
-
-        Intent intent3 = new Intent(MainService.this, MainService2.class);
-        stopService(intent3);
+    public ServiceNoDelay() {
     }
-
-
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        //startTimer();
 
         Log.d(TAG, "Servicio iniciado1...");
-
         Toast.makeText(getApplicationContext(), "Servicio Iniciado1", Toast.LENGTH_SHORT).show();
 
         handler = new ValueEventListener() {
@@ -84,7 +82,7 @@ public class MainService extends Service {
                     //RED
                     if (((text).equals("redd"))) {
                         //Toast.makeText(getApplicationContext(), "EntroRED", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainService.this, RedActivity.class);
+                        Intent intent = new Intent(ServiceNoDelay.this, RedActivity.class);
                         startActivity(intent);
                         Thread.sleep(1000);
                         f.setValue("null");
@@ -92,7 +90,7 @@ public class MainService extends Service {
                     //TODO
                     if (((text).equals("all"))) {
                         //Toast.makeText(getApplicationContext(), "entroTODO", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainService.this, RedActivity.class);
+                        Intent intent = new Intent(ServiceNoDelay.this, RedActivity.class);
                         startActivity(intent);
                         siren();
                         flash();
@@ -117,30 +115,23 @@ public class MainService extends Service {
         return START_STICKY;
     }
 
-    public void onDestroy(){
-        Log.d(TAG, "Servicio destrudio1...");
-        Toast.makeText(getApplicationContext(), "Servico Destruido1", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        Log.i("EXIT", "ondestroy!");
+        Toast.makeText(getApplicationContext(), "Servicio Destruido", Toast.LENGTH_SHORT).show();
+
 
         Intent broadcastIntent = new Intent("ac.in.ActivityRecognition.RestartSensor");
         sendBroadcast(broadcastIntent);
-
-        //stopSelf();
     }
 
+
+    @Nullable
     @Override
-    public void onTaskRemoved(Intent rootIntent) {
-        Log.i(TAG, "TaskRemoved()");
-        Toast.makeText(getApplicationContext(), "Task1", Toast.LENGTH_SHORT).show();
-        super.onTaskRemoved(rootIntent);
-        stopSelf();
-
-        //Intent intent2 = new Intent(MainService.this, MainService.class);
-        //startService(intent2);
-
-        //Intent broadcastIntent = new Intent("com.arvi.ActivityRecognition.RestartSensor");
-        //sendBroadcast(broadcastIntent);
-
-
+    public IBinder onBind(Intent intent) {
+        return null;
     }
 
     public void flash(){
