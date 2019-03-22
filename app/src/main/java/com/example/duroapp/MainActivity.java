@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView texto;
     //Button button1, button2, button3,button4;
-    CardView button1, button2, button3,button4;
+    CardView button1, button2, button3,button4, button6;
 
     Firebase firebaseReference;
     String valor;
