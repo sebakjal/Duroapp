@@ -13,23 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RedActivity" />
-        <activity android:name=".MainActivity">
-        </activity>
-
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".RedActivity"></activity>
 
         <service
-            android:name=".ServiceNoDelay"
-            android:enabled="true" />
+            android:name=".MainService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".MainService"
+            android:enabled="true"
+            android:exported="true" />
 
         <receiver
             android:name=".SensorRestarterBroadcastReceiver"
@@ -40,6 +33,15 @@
                 <action android:name="ac.in.ActivityRecognition.RestartSensor" />
             </intent-filter>
         </receiver>
-    </application>
+
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application
+        >
 
 </manifest>
