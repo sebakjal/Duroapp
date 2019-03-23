@@ -21,7 +21,7 @@ import com.firebase.client.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    CardView button1, button2, button3,button4, button6;
+    CardView button1, button2, button3,button4, button6,button7;
     //Button button1, button2, button3, button4;
     private Firebase firebaseReference = new Firebase("https://condominiumsegurity.firebaseio.com/");
 
